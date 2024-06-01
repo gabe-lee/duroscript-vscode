@@ -1,0 +1,25 @@
+{
+  "name": "duroscript-vscode",
+  "displayName": "Duroscript-VSCode",
+  "description": "VSCode support for the Duroscript language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "duroscript",
+      "aliases": ["Duroscript", "duroscript"],
+      "extensions": [".duro"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "duroscript",
+      "scopeName": "source.duro",
+      "path": "./syntaxes/duroscript.tmLanguage.json"
+    }]
+  }
+}
