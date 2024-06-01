@@ -3,18 +3,59 @@
 	"name": "Duroscript",
 	"patterns": [
 		{
+			"include": "#comments"
+		},
+		{
 			"include": "#keywords"
 		},
 		{
+			"include": "#variables"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
 			"include": "#strings"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#punctuation"
 		}
 	],
 	"repository": {
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.duroscript",
-				"match": "\\b(if|in|else|while|break|match|return|foreach|nextloop)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword.storage.duroscript",
+					"match": "\\b(const|var|import|func|as|_)\\b"
+				},
+				{
+					"name": "constant.numeric.boolean.duroscript",
+					"match": "\\b(true|false)\\b"
+				},
+				{
+					"name": "keyword.control.duroscript",
+					"match": "\\b(if|in|else|while|break|match|return|foreach|nextloop)\\b"
+				},
+				{
+					"name": "entity.name.type.duroscript",
+					"match": "\\b(type|str|bool|u8|i8|u16|i16|u32|i32|u64|i64|f32|f64|struct|union|enum|tuple|none)\\b"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+			  {
+				"name": "entity.name.function.duroscript",
+				"match": "([_a-zA-Z][_a-zA-Z0-9]*)(?=\\s*\\()"
+			  },
+			  {
+				"name": "variable.duroscript",
+				"match": "\\b[_a-zA-Z][_a-zA-Z0-9]*\\b"
+			  }
+			]
 		},
 		"strings": {
 			"patterns": [
@@ -106,12 +147,73 @@
 				}
 			]
 		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.number-sign.duroscript",
+					"begin": "#",
+					"end": "$"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.logical.duroscript",
+					"match": "(\\|\\||&&|\\^\\^|!)"
+				},
+				{
+					"name": "keyword.operator.comparison.duroscript",
+					"match": "(==|!=|<=|>=|<|>)"
+				},
+				{
+					"name": "keyword.operator.arithmetic.duroscript",
+					"match": "(-|\\+|\\*\\*?|\\/\\/?|%)=?"
+				},
+				{
+					"name": "keyword.operator.bitwise.duroscript",
+					"match": "(<<|>>|~|&|\\^|\\|)=?"
+				},
+				{
+					"name": "keyword.operator.assignment.duroscript",
+					"match": "="
+				},
+				{
+					"name": "keyword.operator.reference.duroscript",
+					"match": "@(?=[_a-zA-Z])"
+				},
+				{
+					"name": "keyword.operator.access.duroscript",
+					"match": "\\.[@?]?"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.float.duroscript",
+					"match": "\\b[0-9][0-9_]*\\.[0-9_]+([eE][\\-+]?[0-9][0-9_]*)?\\b"
+				},
+				{
+					"name": "constant.numeric.decimal.duroscript",
+					"match": "\\b[0-9][0-9_]*([eE][\\-+]?[0-9][0-9_]*)?\\b"
+				},
+				{
+					"name": "constant.numeric.hexadecimal.duroscript",
+					"match": "\\b-?0x[a-fA-F0-9_]+\\b"
+				},
+				{
+					"name": "constant.numeric.octal.duroscript",
+					"match": "\\-?0o[0-7_]+\\b"
+				},
+				{
+					"name": "constant.numeric.binary.duroscript",
+					"match": "\\b-?0b[01_]+\\b"
+				}
+			]
+		},
 		"punctuation": {
 			"patterns": [
-			  {
-				"name": "punctuation.accessor.duroscript",
-				"match": "\\."
-			  },
 			  {
 				"name": "punctuation.comma.duroscript",
 				"match": ","
@@ -123,6 +225,10 @@
 			  {
 				"name": "punctuation.terminator.statement.duroscript",
 				"match": ";"
+			  },
+			  {
+				"name": "punctuation.separator.key-value.duroscript",
+				"match": "=>"
 			  }
 			]
 		}
