@@ -41,7 +41,7 @@
 				},
 				{
 					"name": "entity.name.type.duroscript",
-					"match": "\\b(type|str|bool|u8|i8|u16|i16|u32|i32|u64|i64|f32|f64|struct|union|enum|tuple|none)\\b"
+					"match": "\\b(type|string|bool|u8|i8|u16|i16|u32|i32|u64|i64|f32|f64|struct|union|enum|tuple|none|template|flags)\\b"
 				}
 			]
 		},
@@ -84,7 +84,7 @@
 				},
 				{
 					"name": "string.quoted.single.duroscript",
-					"match": "'(?:(\\\\x[a-fA-F0-9]{2}|\\\\o[0-7]{3}|\\\\u[a-fA-F0-9]{4}|\\\\U[a-fA-F0-9]{8}|\\\\\\\\|\\\\['ntvrabfe0])||[^\\\\])'",
+					"match": "'(?:(\\\\x[a-fA-F0-9]{2}|\\\\o[0-7]{3}|\\\\u[a-fA-F0-9]{4}|\\\\U[a-fA-F0-9]{8}|\\\\\\\\|\\\\['ntr])||[^\\\\])'",
 					"captures": {
 						"1": {"name": "constant.character.escape.duroscript"}
 					}
@@ -94,12 +94,8 @@
 		"stringescapes": {
 			"patterns": [
 				{
-					"name": "default.duroscript",
-					"match": "(\\n|\\r\\n|$)\\s*`"
-				},
-				{
 					"name": "constant.character.escape.duroscript",
-					"match": "\\\\([\\\\\"`ntvrabfe0]|(o[0-7]{3})|(x[0-9a-fA-F]{2})|(u[0-9a-fA-F]{4})|(U[0-9a-fA-F]{8}))"
+					"match": "\\\\([\\\\\"`ntr]|(o[0-7]{3})|(x[0-9a-fA-F]{2})|(u[0-9a-fA-F]{4})|(U[0-9a-fA-F]{8}))"
 				},
 				{
 					"name": "invalid.illegal.unrecognized-string-escape.duroscript",
@@ -115,31 +111,29 @@
 			"patterns": [
 				{
 					"name": "constant.character.escape.duroscript",
-					"match": "\\\\([\\$\\{\\}])"
+					"match": "\\\\([\\{\\}])"
 				},
 				{
 					"name": "keyword.other.duroscript",
-					"match": "\\$\\{\\s*([_a-zA-Z][_a-zA-Z0-9]*)(?:\\s*(:)\\s*([dDxXoObBuUsS]))?\\s*\\}",
+					"begin": "\\{\\s*([_a-zA-Z][_a-zA-Z0-9]*)\\s*(?::)?\\s*",
+					"end": "\\}|$",
 					"captures": {
-						"1": {"name": "variable.name.duroscript"},
-						"2": {"name": "keyword.operator.special.duroscript"},
-						"3": {"name": "constant.format.duroscript"}
-					}
-				},
-				{
-					"name": "keyword.other.duroscript",
-					"match": "\\{\\s*([dDxXoObBuUsS])?\\s*\\}",
-					"captures": {
-						"1": {"name": "constant.format.duroscript"}
-					}
-				},
-				{
-					"name": "invalid.illegal.named-string-replacement.duroscript",
-					"match": "\\$\\{[^\\}]*\\}"
-				},
-				{
-					"name": "invalid.illegal.named-string-replacement.duroscript",
-					"match": "\\{[^\\}]*\\}"
+						"1": {"name": "variable.name.duroscript"}
+					},
+					"patterns": [
+						{
+							"name": "punctuation.comma.duroscript",
+							"match": ","
+						},
+						{
+							"name": "constant.format.duroscript",
+							"match": "(?<=[=]\\s*)([a-zA-Z]+|[0-9]+)"
+						},
+						{
+							"name": "constant.format.duroscript",
+							"match": "(?<=[:,]\\s*)[a-zA-Z][a-zA-Z0-9]*"
+						}
+					]
 				},
 				{
 					"name": "invalid.illegal.named-string-replacement.duroscript",
